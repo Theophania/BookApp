@@ -1,0 +1,169 @@
+<mvc:View
+   controllerName="org.ubb.books.controller.Book"
+   xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+<Shell>
+<App busy="{appView>/busy}" class="sapUiSizeCompact">
+<pages>
+<Page title="{i18n>peoplePageTitle}">
+<Panel expandable="true" expanded="false" headerText="Books" width="auto" class="sapUiResponsiveMargin">
+<content>
+ 
+<sap.ui.layout.form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form2">
+<sap.ui.layout.form:formContainers>
+<sap.ui.layout.form:FormContainer id="__container2">
+<sap.ui.layout.form:formElements>
+<sap.ui.layout.form:FormElement label="ISBN" id="isbn"><sap.ui.layout.form:fields>
+<Input width="50%" id="inIsbn" placeholder="Isbn"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+<sap.ui.layout.form:FormElement label="Autor" id="autor"><sap.ui.layout.form:fields>
+<Input width="50%" id="inAutor" placeholder="Autor"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+<sap.ui.layout.form:FormElement label="Title" id="title">
+<sap.ui.layout.form:fields>
+<Input width="50%" id="inTitle" placeholder="Title"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+<sap.ui.layout.form:FormElement label="Date Published" id="datePublished">
+<sap.ui.layout.form:fields>
+        <DatePicker
+            id="inDatePublished"
+            placeholder="Enter Date"
+            change="handleChange"
+            width="50%"
+            valueFormat="yyyy-MM-dd-HH-mm-ss"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+<sap.ui.layout.form:FormElement label="Language" id="language">
+<sap.ui.layout.form:fields>
+<Input width="50%" id="inLanguage" placeholder="Language"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+<sap.ui.layout.form:FormElement label="Total Number Books" id="totalnrbooks">
+<sap.ui.layout.form:fields>
+<Input width="50%" id="inTotalnrbooks" placeholder="Total Number of books"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+<sap.ui.layout.form:FormElement label="Number Available Books" id="nravailablebooks">
+<sap.ui.layout.form:fields>
+<Input width="50%" id="inNravailablebooks" placeholder="Number of Available books"/>
+</sap.ui.layout.form:fields>
+</sap.ui.layout.form:FormElement>
+</sap.ui.layout.form:formElements>
+</sap.ui.layout.form:FormContainer>
+</sap.ui.layout.form:formContainers>
+<sap.ui.layout.form:layout>
+<sap.ui.layout.form:ResponsiveGridLayout id="__layout2"/>
+</sap.ui.layout.form:layout>
+</sap.ui.layout.form:Form>
+ <Toolbar height="3rem">
+<Button icon="sap-icon://add" text="Add book" type="Emphasized" press="onCreate"/></Toolbar>
+</content>
+ 
+</Panel>
+   <Table id="idBooksTable"
+     	mode="Delete"
+        delete="handleDelete"
+        headerText="{i18n>booksListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+		items="{
+			path: '/BOOKS_TNSet',
+			parameters: {
+									$count: true,
+									$$updateGroupId : 'peopleGroup'
+								}
+		}"
+		growing="true"
+		growingThreshold="10">
+	<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<ToolbarSpacer/>
+							
+										<!-- <Button
+											id="addBookButton"
+											icon="sap-icon://add"
+											tooltip="{i18n>createButtonText}"
+											press="onCreate">
+											<layoutData>
+												<OverflowToolbarLayoutData priority="NeverOverflow"/>
+											</layoutData>
+										</Button> -->
+									
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="Title" />
+			</Column>
+			<Column>
+				<Text text="ISBN" />
+			</Column>
+			<Column>
+				<Text text="Autor" />
+			</Column>
+			<Column>
+				<Text text="Published on" />
+			</Column>
+			<Column>
+				<Text text="Language" />
+			</Column>
+         <Column>
+				<Text text="Available books" />
+			</Column>
+	
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Input
+						value="{Title}"
+						valueLiveUpdate="true"
+						liveChange=".onInputChange"/>
+						<Input
+								value="{= parseInt(${Isbn}) }"
+								valueLiveUpdate="true"
+								liveChange=".onInputChange"/>
+						<Input
+								value="{Autor}"
+								valueLiveUpdate="true"
+								liveChange=".onInputChange"/>
+					<Text text="{ 
+							path: 'DatePublished',
+							type: 'sap.ui.model.type.Date'
+               			}" 
+					/>
+					<Input
+								value="{Language}"
+								valueLiveUpdate="true"
+								liveChange=".onInputChange"/>
+					<Input
+							value="{= parseInt(${NrAvailableBooks})}"
+							valueLiveUpdate="true"
+							liveChange=".onInputChange"
+							change=".onInputNrChange"/>
+
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+	<footer>
+						<Toolbar visible="{appView>/hasUIChanges}">
+							<ToolbarSpacer/>
+							<Button
+								id="saveButton"
+								type="Emphasized"
+								text="{i18n>saveButtonText}"
+								press="onSave"/>
+						</Toolbar>
+					</footer>
+   	</Page>
+	</pages>
+	</App>
+	</Shell>
+</mvc:View>

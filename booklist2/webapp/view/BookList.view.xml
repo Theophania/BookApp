@@ -1,0 +1,94 @@
+<mvc:View
+	controllerName="org.ubb.books.controller.Book"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+	height="100%">
+	<m:Page
+		showHeader="false"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<Table id="table1"
+				rows="{/Z801_JOIN2BOOKS_TNSet}"
+				selectionMode="None"
+				>
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Checked books"/>
+						<m:ToolbarSpacer/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="9rem" filterProperty="LastName"
+                    sortProperty="LastName"
+                    defaultFilterOperator="Contains">
+						<m:Label text="Last name" />
+							<template>
+							<m:Label text="{LastName}" />
+						</template>
+					</Column>
+					<Column width="9rem">
+						<m:Label text="Checkout Date" />
+							<template>
+							<m:Label text="{
+                                path: 'DateCheckout',
+                                formatter : '.formatDate'
+
+                            }" />
+						</template>
+					</Column>
+					<Column width="9rem">
+						<m:Label text="Return Date" />
+							<template>
+							<m:Label text="{
+                                path: 'DateReturn',
+                                formatter : '.formatDate'
+
+                            }" />
+						</template>
+					</Column>
+					<Column width="9rem">
+						<m:Label text="ISBN" />
+						<template>
+							<m:Label text="{Isbn}" />
+						</template>
+					</Column>
+					<Column width="9rem" >
+						<m:Label text="Username" />
+						<template>
+							<m:Label text="{Username}" />
+						</template>
+					</Column>
+					<Column width="11rem" filterProperty="Autor"
+                    sortProperty="Autor"
+                    defaultFilterOperator="Contains">
+						<m:Label text="Autor" />
+						<template>
+							<m:Label text="{Autor}" />
+						</template>
+					</Column>
+					<Column width="11rem" filterProperty="Title"
+                    sortProperty="Title"
+                    defaultFilterOperator="Contains">
+						<m:Label text="Title" />
+						<template>
+							<m:Label text="{Title}" />
+						</template>
+					</Column>
+					<Column width="9rem" filterProperty="FirstName"
+                    sortProperty="FirstName"
+                    defaultFilterOperator="Contains">
+						<m:Label text="FirstName" />
+						<template>
+							<m:Label text="{FirstName}" />
+						</template>
+					</Column>
+				</columns>
+			</Table>
+
+		</m:content>
+	</m:Page>
+</mvc:View>

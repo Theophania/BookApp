@@ -1,0 +1,108 @@
+<mvc:View
+   controllerName="org.ubb.books.controller.Book"
+   xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+<Shell>
+<App busy="{appView>/busy}" class="sapUiSizeCompact">
+<pages>
+<Page title="{i18n>homePageTitle}">
+<Panel expandable="true" expanded="false" headerText="Search a book after" width="auto" class="sapUiResponsiveMargin">
+<content>
+		  <SearchField id="searchId" placeholder="Search after ISBN" width="40%" selectOnFocus="false"/>
+		  <SearchField id="searchTitle" placeholder="Search after title" width="40%" selectOnFocus="false"/>
+		  <SearchField id="searchAutor" placeholder="Search after autor" width="40%" selectOnFocus="false"/>
+		  <DatePicker 
+              id="searchDate" 
+              valueFormat="yyyy-MM-dd" 
+              placeholder="Search after date published" 
+              width="40%"
+             change="handleChange"/>
+		<SearchField id="searchLanguage" placeholder="Search after language" width="40%" selectOnFocus="false"/>
+		<Button
+											id="searchBook"
+											text="Search book by"
+											icon="sap-icon://search"
+											press="onSearch">
+											<layoutData>
+												<OverflowToolbarLayoutData priority="NeverOverflow"/>
+											</layoutData>
+										</Button>
+</content>
+</Panel>
+   <Table id="idBooksTable"
+     
+		mode="MultiSelect"
+        headerText="{i18n>booksListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+		items="{
+			path: '/SEARCH_BOOK_TENESet',
+			parameters: {
+									$count: true,
+									$$updateGroupId : 'peopleGroup'
+								}
+		}"
+		growing="true"
+		growingThreshold="10">
+	<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<ToolbarSpacer/>
+										<Button
+											id="checkoutBook"
+											text="Check out book"
+											icon="sap-icon://copy"
+											tooltip="{i18n>createButtonText}"
+											press="checkoutBook">
+											<layoutData>
+												<OverflowToolbarLayoutData priority="NeverOverflow"/>
+											</layoutData>
+										</Button>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="Title" />
+			</Column>
+			<Column>
+				<Text text="ISBN" />
+			</Column>
+			<Column>
+				<Text text="Autor" />
+			</Column>
+			<Column>
+				<Text text="Published on" />
+			</Column>
+			<Column>
+				<Text text="Language" />
+			</Column>
+         <Column>
+				<Text text="Available books" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<Text text="{Title}"/>
+						<Text text="{= parseInt(${Isbn}) }"/>
+						<Text text="{Autor}"/>
+					<Text text="{ 
+							path: 'DatePublished',
+							type: 'sap.ui.model.type.Date'
+							
+               			}" 
+					/>
+					<Text text="{Language}"/>
+					<Text text="{= parseInt(${NrAvailableBooks})}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+   	</Page>
+	</pages>
+	</App>
+	</Shell>
+</mvc:View>
